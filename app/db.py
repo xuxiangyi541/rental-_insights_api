@@ -11,3 +11,8 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+def init_db():
+    # Import models 
+    from . import models  # noqa: F401
+    Base.metadata.create_all(bind=engine)
