@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from .db import init_db
+from .routers.listings import router as listings_router
 
 app = FastAPI(
     title="Rental Insights API",
@@ -10,6 +11,8 @@ app = FastAPI(
 @app.on_event("startup")
 def on_startup():
     init_db()
+
+app.include_router(listings_router)
 
 @app.get("/health")
 def health_check():
